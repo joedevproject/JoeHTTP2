@@ -44,7 +44,7 @@ public class PreThread implements Runnable{
             if(input == null) {
                 System.out.println("[CONNECTION CLOSED: "+user.getInetAddress()+"] PORT "+user.getPort());
                 running = false;
-            } else if(input.equalsIgnoreCase(" ")) {
+            } else if(input.equalsIgnoreCase("")) {
                 out.println("<h1>It Works!</h1>");
                 try {
                     user.close();
