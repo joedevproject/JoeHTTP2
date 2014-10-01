@@ -51,6 +51,7 @@ public class PreThread implements Runnable{
                     in.close();
                     out.close();
                     System.out.println("[CONNECTION FINISHED: "+user.getInetAddress()+"] PORT "+user.getPort());
+                    running = false;
                 } catch (IOException ex) {
                     Logger.getLogger(PreThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
