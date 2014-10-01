@@ -46,6 +46,14 @@ public class PreThread implements Runnable{
                 running = false;
             } else if(input.equalsIgnoreCase(" ")) {
                 out.println("<h1>It Works!</h1>");
+                try {
+                    user.close();
+                    in.close();
+                    out.close();
+                    System.out.println("[CONNECTION FINISHED: "+user.getInetAddress()+"] PORT "+user.getPort());
+                } catch (IOException ex) {
+                    Logger.getLogger(PreThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
