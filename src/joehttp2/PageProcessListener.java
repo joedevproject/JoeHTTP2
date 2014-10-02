@@ -4,6 +4,6 @@ package joehttp2;
  *
  * @author aweso_000
  */
-public class PageProcessListener {
-    
+public interface PageProcessListener {
+    public void onPageProcess(PageProcessEvent e);
 }

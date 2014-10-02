@@ -7,9 +7,17 @@ import java.net.Socket;
  * @author aweso_000
  */
 public class PageProcessEvent {
-    
-    PageProcessEvent(Socket s) {
-        
+    private Socket s = null;
+    private String headers = "";
+    private String requested = "";
+    private String data = "";
+    PageProcessEvent(Socket s, String requested) {
+        this.s = s;
     }
-    
+    public String getInetAdress() {
+        return s.getInetAddress().toString();
+    }
+    public int getPort() {
+        return s.getPort();
+    }
 }
