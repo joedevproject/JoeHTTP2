@@ -48,4 +48,10 @@ public class PageProcessEvent {
     public String getURL() {
         return requested;
     }
+    public void send404NotFound() {
+        headers = "HTTP/1.1 404 NOT FOUND\nContent-type=text/html\nLanguage: en-US";
+    }
+    public void sendRedirect(String location) {
+        headers = "HTTP/1.1 302 REDIRECT\nLocation: "+location;
+    }
 }
