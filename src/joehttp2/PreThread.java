@@ -19,6 +19,7 @@ public class PreThread implements Runnable{
     private PrintWriter out = null;
     private boolean running = true;
     private PageProcessListener e = null;
+    private String GetURL = "";
     
     PreThread(Socket s,PageProcessListener e) {
         user = s;
@@ -59,7 +60,7 @@ public class PreThread implements Runnable{
                     Logger.getLogger(PreThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else if(input.startsWith("GET")) {
-                
+                GetURL = input.replaceAll(" HTTP/1.1", "").replaceAll("GET ", "");
             }
         }
     }
