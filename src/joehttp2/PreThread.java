@@ -45,7 +45,10 @@ public class PreThread implements Runnable{
                 System.out.println("[CONNECTION CLOSED: "+user.getInetAddress()+"] PORT "+user.getPort());
                 running = false;
             } else if(input.equalsIgnoreCase("")) {
-                out.println("<h1>It Works!</h1>");
+                out.println("HTTP/1.1 200 OK");
+                out.println("Content-type: text/html");
+                out.println();
+                out.println("<!DOCTYPE HTML>\n<html>\n<head>\n<title>Default Page</title>\n</head>\n<body>\n<h1>It Works</h1>\n</body>\n</html>");
                 try {
                     user.close();
                     in.close();
@@ -55,6 +58,8 @@ public class PreThread implements Runnable{
                 } catch (IOException ex) {
                     Logger.getLogger(PreThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else if(input.startsWith("GET")) {
+                
             }
         }
     }
