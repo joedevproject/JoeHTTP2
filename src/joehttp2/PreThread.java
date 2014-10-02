@@ -46,10 +46,7 @@ public class PreThread implements Runnable{
                 System.out.println("[CONNECTION CLOSED: "+user.getInetAddress()+"] PORT "+user.getPort());
                 running = false;
             } else if(input.equalsIgnoreCase("")) {
-                out.println("HTTP/1.1 200 OK");
-                out.println("Content-type: text/html");
-                out.println();
-                out.println("<!DOCTYPE HTML>\n<html>\n<head>\n<title>Default Page</title>\n</head>\n<body>\n<h1>It Works</h1>\n</body>\n</html>");
+                e.onPageProcess(new PageProcessEvent(user,GetURL));
                 try {
                     user.close();
                     in.close();
