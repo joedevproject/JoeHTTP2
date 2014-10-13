@@ -34,6 +34,9 @@ public class PageProcessEvent {
     public void setHTML(String HTML) {
         data = HTML;
     }
+    public void setHTML(HTTPPage p) {
+        data = p.getLines();
+    }
     public void sendToBrowser() {
         out.println(headers);
         out.println();
@@ -53,5 +56,8 @@ public class PageProcessEvent {
     }
     public void sendRedirect(String location) {
         headers = "HTTP/1.1 302 REDIRECT\nLocation: "+location;
+    }
+    public void send403Forbidden() {
+        headers = "HTTP/1.1 403 FORBIDDEN\nContent-type=text/html\nLanguage: en-US";
     }
 }
