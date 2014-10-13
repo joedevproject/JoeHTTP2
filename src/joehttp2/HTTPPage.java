@@ -49,7 +49,7 @@ public class HTTPPage {
     String sendErrorPage() {
         String lines = "";
         try {
-            BufferedReader r = new BufferedReader(new FileReader(f));
+            BufferedReader r = new BufferedReader(new FileReader(this.getClass().getResource("InvalidHTTPPage.html").getFile()));
             String line = "";
             while((line = r.readLine()) != null) {
                 if(lines.equalsIgnoreCase("")) {
