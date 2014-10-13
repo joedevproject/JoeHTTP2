@@ -53,10 +53,10 @@ public class HTTPPage {
             String line = "";
             while((line = r.readLine()) != null) {
                 if(lines.equalsIgnoreCase("")) {
-                    line.replaceAll("[errormessage]", errormessage);
+                    line = line.replace("[errormessage]", errormessage);
                     lines = line;
                 } else {
-                    line.replaceAll("[errormessage]", errormessage);
+                    line = line.replace("[errormessage]", errormessage);
                     lines = lines+"\n"+line;
                 }
             }
