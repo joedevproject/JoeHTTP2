@@ -20,6 +20,8 @@ public class PreThread implements Runnable{
     private boolean running = true;
     private PageProcessListener e = null;
     private String GetURL = "";
+    private String requestheaders = "";
+    private boolean request = false;
     
     PreThread(Socket s,PageProcessListener e) {
         user = s;
@@ -46,7 +48,8 @@ public class PreThread implements Runnable{
                 System.out.println("[CONNECTION CLOSED: "+user.getInetAddress()+"] PORT "+user.getPort());
                 running = false;
             } else if(input.equalsIgnoreCase("")) {
-                e.onPageProcess(new PageProcessEvent(user,GetURL));
+                request = false;
+                e.onPageProcess(new PageProcessEvent(user,GetURL,requestheaders));
                 try {
                     user.close();
                     in.close();
@@ -58,6 +61,14 @@ public class PreThread implements Runnable{
                 }
             } else if(input.startsWith("GET")) {
                 GetURL = input.replaceAll(" HTTP/1.1", "").replaceAll("GET ", "");
+                request = true;
+            }
+            if(request) {
+                if(requestheaders.equalsIgnoreCase("")) {
+                    requestheaders = input;
+                } else {
+                    requestheaders = requestheaders+"\n"+input;
+                }
             }
         }
     }
