@@ -9,8 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author aweso_000
+ * This class is for processing the main
+ * request.
+ * 
+ * @author Joe
  */
 public class PreThread implements Runnable{
     
@@ -23,6 +25,13 @@ public class PreThread implements Runnable{
     private String requestheaders = "";
     private boolean request = false;
     
+    /**
+     * NOTE: This constructor is to NEVER be used outside
+     * of the JoeHTTP2 backend.
+     * 
+     * @param   s   The socket in which to communicate through
+     * @param   e   The listener in which to activate when ready to send the page.
+     */
     PreThread(Socket s,PageProcessListener e) {
         user = s;
         this.e = e;
@@ -35,6 +44,9 @@ public class PreThread implements Runnable{
         System.out.println("[CONNECTION ESTABLISHED: "+user.getInetAddress()+"] PORT "+user.getPort());
     }
 
+    /**
+     * This function handles the thread accordingly
+     */
     public void run() {
         while(running) {
             String input = "";

@@ -15,15 +15,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author aweso_000
+ * This class is for a File.
+ * 
+ * @author Joe
  */
 public class HTTPPage {
     private File f;
     private String errormessage = "";
+    /**
+     * This method creates a new HTTPPage.
+     * 
+     * @param f The file to be converted to an HTTPPage
+     */
     public HTTPPage(File f) {
         this.f = f;
     }
+    /**
+     * NOTE: This method is to be used ONLY in the JoeHTTP2
+     * backend.
+     * 
+     * @return The lines in the file
+     */
     String getLines() {
         String lines = "";
         try {
@@ -46,6 +58,12 @@ public class HTTPPage {
         }
         return sendErrorPage();
     }
+    /**
+     * NOTE: This method is to be used ONLY in the JoeHTTP2
+     * backend.
+     * 
+     * @return The error page
+     */
     String sendErrorPage() {
         String lines = "";
         try {
