@@ -14,7 +14,8 @@ import java.util.logging.Logger;
  */
 public class PageProcessEvent {
     private Socket s = null;
-    private String headers = "HTTP/1.1 200 OK\nContent-type: text/html\nLanguage: en-US";
+    private String aheaders = "Content-type: text/html\nLanguage: en-US";
+    private String bheaders = "HTTP/1.1 200 OK";
     private String requested = "";
     private String data = "";
     private PrintWriter out = null;
@@ -76,7 +77,8 @@ public class PageProcessEvent {
      * This method sends the webpage to the browser.
      */
     public void sendToBrowser() {
-        out.println(headers);
+        out.println(bheaders);
+        out.println(aheaders);
         out.println();
         out.println(data);
         try {
@@ -85,7 +87,6 @@ public class PageProcessEvent {
         } catch (IOException ex) {
             Logger.getLogger(PageProcessEvent.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(headers);
     }
     /**
      * This method is used for getting the URL that was requested.
@@ -100,39 +101,52 @@ public class PageProcessEvent {
      * to the browser.
      */
     public void send404NotFound() {
-        headers = "HTTP/1.1 404 NOT FOUND\nContent-type: text/html\nLanguage: en-US";
+        bheaders = "HTTP/1.1 404 NOT FOUND";
     }
     /**
      * This method prepares the JoeHTTP2 backend to send a redirect.
+     * <p>
+     * Do not use the setResponseHeaders(String newheaders) method
+     * when using this method.
      * 
      * @param location The URL in which to send the browser.
      */
     public void sendRedirect(String location) {
-        headers = "HTTP/1.1 302 REDIRECT\nLocation: "+location;
+        bheaders = "HTTP/1.1 302 REDIRECT";
+        aheaders = "Location: "+location;
     }
     /**
      * This method sets the JotHTTP2 backend to send a 403 Forbidden
      * to the browser.
      */
     public void send403Forbidden() {
-        headers = "HTTP/1.1 403 FORBIDDEN\nContent-type: text/html\nLanguage: en-US";
+        bheaders = "HTTP/1.1 403 FORBIDDEN";
     }
     /**
      * Gets the request headers the browser sent to get the page
-     * (Includes the "GET" or "POST" portion of the request.
      * 
      * @return The request headers
      */
     public String getRequestHeaders() {
+        String headers = "";
+        String[] headerlines = requestheaders.split("\n");
+        for(int i=0;i<headerlines.length;i++) {
+            if(!headerlines[i].startsWith("GET")) {
+                if(headers.equalsIgnoreCase("")) {
+                    headers = headerlines[i];
+                } else {
+                    headers = headers+"\n"+headerlines[i];
+                }
+            }
+        }
         return requestheaders;
     }
     /**
      * This method sets the headers to send to the browser
-     * (the "HTTP/1.1" part is not automatically put in)
      * 
      * @param newheaders The headers to send to the web browser
      */
     public void setResponseHeaders(String newheaders) {
-        headers = newheaders;
+        bheaders = newheaders;
     }
 }

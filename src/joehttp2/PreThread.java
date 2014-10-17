@@ -45,7 +45,10 @@ public class PreThread implements Runnable{
     }
 
     /**
-     * This function handles the thread accordingly
+     * This is the main running thread.
+     * <p>
+     * NOTE: This method is to NEVER be used outside
+     * of the JoeHTTP2 backend!
      */
     public void run() {
         while(running) {
